@@ -25,11 +25,13 @@ jobs:
           pip install newspaper3k firebase-admin requests lxml_html_clean
 
       - name: Create Temporary Key File from Secret
+        env:
+          # We store the secret in an environment variable first
+          FIREBASE_KEY_DATA: ${{ secrets.FIREBASE_JSON_KEY }}
         run: |
-          # 1. Create the folder
           mkdir -p scraper
-          # 2. Take the secret string and turn it into a physical file
-          echo "${{ secrets.FIREBASE_JSON_KEY }}" > scraper/firebase-key.json
+          # We use the variable to write the file, which preserves formatting
+          echo "$FIREBASE_KEY_DATA" > scraper/firebase-key.json
 
       - name: Run Scraper
         run: python scraper/scraper.py
