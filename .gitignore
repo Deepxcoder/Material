@@ -30,4 +30,5 @@ node_modules
 dist
 
 # Firebase and secrets
+scraper/*.json
 scraper/firebase-key.json

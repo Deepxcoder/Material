@@ -1,7 +1,7 @@
 name: Daily News Scraper
 
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # This forces the update to Node 20+ support
 
 on:
   schedule:
@@ -25,15 +25,25 @@ jobs:
 
       - name: Prepare Workspace and Debug
         run: |
-          # Create the folder if it doesn't exist
+          # 1. Force create the directory just in case
           mkdir -p scraper
+          
+          # 2. Write the secret into the file
           echo "${{ secrets.FIREBASE_JSON_KEY }}" > scraper/firebase-key.json
+          
           echo "--- FILE MAP ---"
           ls -R
 
+      - name: Debug - List all files
+        run: |
+          echo "Current Working Directory:"
+          pwd
+          echo "Listing all files recursively:"
+          ls -R
+          
       - name: Run Scraper
         run: |
-          # We search for the file and run it wherever it is
+          # We search for the file and run it wherever it is (handles scraper vs scrapper folder)
           FILE_PATH=$(find . -name "scraper.py" | head -n 1)
           if [ -z "$FILE_PATH" ]; then
             echo "Error: scraper.py not found anywhere!"
