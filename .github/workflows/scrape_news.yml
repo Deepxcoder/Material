@@ -33,5 +33,10 @@ jobs:
           # We use the variable to write the file, which preserves formatting
           echo "$FIREBASE_KEY_DATA" > scraper/firebase-key.json
 
+      - name: Debug JSON Format
+        run: |
+          # This will print the first few lines of the file so you can check the quotes
+          head -n 5 scraper/firebase-key.json    
+
       - name: Run Scraper
         run: python scraper/scraper.py
