@@ -27,4 +27,11 @@ export const themes = {
         button: 'bg-gray-900 dark:bg-[#F9FAFB] text-[#F9FAFB] dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-white rounded-xl px-6 py-2.5 font-medium transition-all active:scale-[0.98]',
         accent: 'text-blue-600 dark:text-blue-400',
     },
+    'dark-modern': {
+        name: 'dark-modern',
+        classes: 'bg-[#121212] text-[#F9FAFB] font-sans antialiased',
+        card: 'bg-[#1C1C1E] border border-[#2C2C2E] rounded-2xl shadow-sm hover:shadow-md transition-all duration-300',
+        button: 'bg-[#F9FAFB] text-gray-900 hover:bg-white rounded-xl px-6 py-2.5 font-medium transition-all active:scale-[0.98]',
+        accent: 'text-blue-400',
+    },
 };

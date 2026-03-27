@@ -20,9 +20,11 @@ export const ThemeProvider = ({ children }) => {
 
     const theme = themes[currentTheme];
 
+    const isDark = currentTheme.includes('dark') || ['glass', 'tech', 'gamified'].includes(currentTheme);
+
     return (
         <ThemeContext.Provider value={{ theme, currentTheme, toggleTheme }}>
-            <div className={`min-h-screen transition-colors duration-500 ${theme.classes} ${currentTheme}-theme`}>
+            <div className={`min-h-screen transition-all duration-500 ${isDark ? 'dark' : ''} ${theme.classes} ${currentTheme}-theme`}>
                 {children}
             </div>
         </ThemeContext.Provider>
