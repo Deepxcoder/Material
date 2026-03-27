@@ -28,6 +28,11 @@ jobs:
           
           # 2. Write the secret into the file
           echo "${{ secrets.FIREBASE_JSON_KEY }}" > scraper/firebase-key.json
+
+      - name: Debug - List all files
+        run: |
+          echo "Current Directory Content:"
+          ls -R
           
       - name: Run Scraper
         run: python scraper/scraper.py
