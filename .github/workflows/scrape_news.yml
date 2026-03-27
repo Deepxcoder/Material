@@ -1,9 +1,12 @@
 name: Daily News Scraper
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   schedule:
-    - cron: '0 0 * * *'  # This runs every night at 12:00 AM UTC
-  workflow_dispatch:      # This adds a "Run" button so you can test it manually
+    - cron: '0 0 * * *'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -15,15 +18,25 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.9'
+          python-version: '3.11'
 
       - name: Install dependencies
-        run: |
-          pip install newspaper3k firebase-admin requests
+        run: pip install newspaper3k firebase-admin requests
 
-      - name: Create Firebase Key File
+      - name: Prepare Workspace and Debug
         run: |
+          # Create the folder if it doesn't exist
+          mkdir -p scraper
           echo "${{ secrets.FIREBASE_JSON_KEY }}" > scraper/firebase-key.json
+          echo "--- FILE MAP ---"
+          ls -R
 
       - name: Run Scraper
-        run: python scraper/scraper.py
+        run: |
+          # We search for the file and run it wherever it is
+          FILE_PATH=$(find . -name "scraper.py" | head -n 1)
+          if [ -z "$FILE_PATH" ]; then
+            echo "Error: scraper.py not found anywhere!"
+            exit 1
+          fi
+          python "$FILE_PATH"
