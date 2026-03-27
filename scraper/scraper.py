@@ -27,7 +27,12 @@ def run_automated_scraper(url, category_name):
         "source_url": url,
         "created_at": datetime.datetime.now() # Very important for sorting the feed
     }
-
+    # --- PART 2.5: THE DUPLICATE CHECK ---
+    # Check if this URL already exists in your Firebase to avoid spamming your feed
+    docs = db.collection("explore_feed").where("source_url", "==", url).get()
+    if len(docs) > 0:
+        print(f"⏭️ Skipping: {article.title} (Already exists in database)")
+        return
     # --- PART 3: THE UPLOAD ---
     # This adds a new 'Document' to a 'Collection' named "explore_feed"
     try:
