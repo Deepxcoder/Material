@@ -25,16 +25,11 @@ jobs:
           # Adding lxml_html_clean solves the newspaper3k ImportError
           pip install newspaper3k firebase-admin requests lxml_html_clean
 
-      - name: Prepare Workspace and Debug
+      - name: Prepare Workspace
         run: |
-          # 1. Force create the directory just in case
-          mkdir -p scraper
-          
-          # 2. Write the secret into the file
-          echo "${{ secrets.FIREBASE_JSON_KEY }}" > scraper/firebase-key.json
-          
-          echo "--- FILE MAP ---"
-          ls -R
+            mkdir -p scraper
+            # This line takes the secret text and saves it into a real file
+            echo "${{ secrets.FIREBASE_JSON_KEY }}" > scraper/firebase-key.json
 
       - name: Debug - List all files
         run: |
