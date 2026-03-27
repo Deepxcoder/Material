@@ -21,10 +21,13 @@ jobs:
       - name: Install dependencies
         run: |
           pip install newspaper3k firebase-admin requests
-
       - name: Create Firebase Key File
         run: |
+          # 1. Force create the directory just in case
+          mkdir -p scraper 
+          
+          # 2. Write the secret into the file
           echo "${{ secrets.FIREBASE_JSON_KEY }}" > scraper/firebase-key.json
-
+          
       - name: Run Scraper
         run: python scraper/scraper.py
