@@ -1,5 +1,6 @@
 name: Daily News Scraper
-
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # This forces the update
 on:
   schedule:
     - cron: '0 0 * * *'  # This runs every night at 12:00 AM UTC
