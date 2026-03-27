@@ -34,5 +34,14 @@ jobs:
           echo "Current Directory Content:"
           ls -R
           
+      - name: Prepare Workspace
+        run: |
+          # Use whatever name you used in your repo (scraper or scrapper)
+          mkdir -p scraper 
+          echo "${{ secrets.FIREBASE_JSON_KEY }}" > scraper/firebase-key.json
+          
       - name: Run Scraper
-        run: python scraper/scraper.py
+        run: |
+          # We tell Python specifically where to look
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          python scraper/scraper.py
