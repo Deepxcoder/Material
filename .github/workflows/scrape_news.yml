@@ -21,7 +21,9 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install newspaper3k firebase-admin requests
+        run: |
+          # Adding lxml_html_clean solves the newspaper3k ImportError
+          pip install newspaper3k firebase-admin requests lxml_html_clean
 
       - name: Prepare Workspace and Debug
         run: |
