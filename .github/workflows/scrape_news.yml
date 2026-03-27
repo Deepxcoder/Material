@@ -26,17 +26,17 @@ jobs:
 
       - name: Create Temporary Key File from Secret
         env:
-          # We store the secret in an environment variable first
-          FIREBASE_KEY_DATA: ${{ secrets.FIREBASE_JSON_KEY }}
+          # We store the secret in a variable first to protect formatting
+          RAW_JSON_KEY: ${{ secrets.FIREBASE_JSON_KEY }}
         run: |
           mkdir -p scraper
-          # We use the variable to write the file, which preserves formatting
-          echo "$FIREBASE_KEY_DATA" > scraper/firebase-key.json
+          # We use quotes around the variable to ensure it's written exactly as-is
+          echo "$RAW_JSON_KEY" > scraper/firebase-key.json
 
-      - name: Debug JSON Format
+      - name: Debug - Check JSON Start
         run: |
-          # This will print the first few lines of the file so you can check the quotes
-          head -n 5 scraper/firebase-key.json    
-
+          # This prints the first 50 characters of the file
+          head -c 50 scraper/firebase-key.json
+          echo "...(rest of file hidden)"
       - name: Run Scraper
         run: python scraper/scraper.py
