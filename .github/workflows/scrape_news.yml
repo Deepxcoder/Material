@@ -1,7 +1,7 @@
 name: Daily News Scraper
 
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # This forces the update to Node 20+ support
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 on:
   schedule:
@@ -22,28 +22,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # Adding lxml_html_clean solves the newspaper3k ImportError
           pip install newspaper3k firebase-admin requests lxml_html_clean
 
-      - name: Prepare Workspace
+      - name: Create Temporary Key File from Secret
         run: |
-            mkdir -p scraper
-            # This line takes the secret text and saves it into a real file
-            echo "${{ secrets.FIREBASE_JSON_KEY }}" > scraper/firebase-key.json
+          # 1. Create the folder
+          mkdir -p scraper
+          # 2. Take the secret string and turn it into a physical file
+          echo "${{ secrets.FIREBASE_JSON_KEY }}" > scraper/firebase-key.json
 
-      - name: Debug - List all files
-        run: |
-          echo "Current Working Directory:"
-          pwd
-          echo "Listing all files recursively:"
-          ls -R
-          
       - name: Run Scraper
-        run: |
-          # We search for the file and run it wherever it is (handles scraper vs scrapper folder)
-          FILE_PATH=$(find . -name "scraper.py" | head -n 1)
-          if [ -z "$FILE_PATH" ]; then
-            echo "Error: scraper.py not found anywhere!"
-            exit 1
-          fi
-          python "$FILE_PATH"
+        run: python scraper/scraper.py
