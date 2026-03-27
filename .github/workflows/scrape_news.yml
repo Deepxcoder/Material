@@ -31,17 +31,13 @@ jobs:
 
       - name: Debug - List all files
         run: |
-          echo "Current Directory Content:"
+          echo "Current Working Directory:"
+          pwd
+          echo "Listing all files recursively:"
           ls -R
-          
-      - name: Prepare Workspace
-        run: |
-          # Use whatever name you used in your repo (scraper or scrapper)
-          mkdir -p scraper 
-          echo "${{ secrets.FIREBASE_JSON_KEY }}" > scraper/firebase-key.json
           
       - name: Run Scraper
         run: |
-          # We tell Python specifically where to look
-          export PYTHONPATH=$PYTHONPATH:$(pwd)
-          python scraper/scraper.py
+          # Use the folder name found in your ls -R output
+          cd scraper || cd scrapper 
+          python scraper.py
