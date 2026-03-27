@@ -1,0 +1,29 @@
+name: Daily News Scraper
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # This runs every night at 12:00 AM UTC
+  workflow_dispatch:      # This adds a "Run" button so you can test it manually
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install newspaper3k firebase-admin requests
+
+      - name: Create Firebase Key File
+        run: |
+          echo "${{ secrets.FIREBASE_JSON_KEY }}" > scraper/firebase-key.json
+
+      - name: Run Scraper
+        run: python scraper/scraper.py

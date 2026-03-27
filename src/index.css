@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans min-h-screen relative overflow-x-hidden transition-colors duration-300;
+  }
+
+  /* V2 & V3: Strict No Rounded Corners */
+  .modern-theme *,
+  .modern-theme ::before,
+  .modern-theme ::after,
+  .dark-modern-theme *,
+  .dark-modern-theme ::before,
+  .dark-modern-theme ::after {
+    border-radius: 0 !important;
+  }
+
+  /* V3: Electric Blue & Glassmorphism */
+  :root {
+    --electric-blue: #007BFF;
+  }
+
+  .glass {
+    @apply bg-white/70 dark:bg-black/70 backdrop-blur-xl border border-gray-100/20 dark:border-white/10;
+  }
+
+  .glass-dark {
+    @apply bg-black/40 backdrop-blur-2xl border border-white/5;
+  }
+
+  /* Only apply pixel resets to specific themes if needed,
+     but let's make it opt-in via a class on the root if possible.
+     For now, we remove the global !important. */
+
+  .pixel-theme *, .pixel-theme ::before, .pixel-theme ::after {
+    border-radius: 0 !important;
+  }
+
+  .pixel-theme h1, .pixel-theme h2, .pixel-theme h3, .pixel-theme h4, .pixel-theme .pixel-font {
+    @apply font-pixel tracking-wider;
+    line-height: 1.5;
+  }
+
+  /* Modern typography defaults */
+  h1, h2, h3, h4 {
+    @apply font-semibold;
+  }
+
+  /* Optional smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .pixelated {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+}
