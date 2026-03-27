@@ -28,3 +28,6 @@ dist-ssr
 .venv
 node_modules
 dist
+
+# Firebase and secrets
+scraper/firebase-key.json
