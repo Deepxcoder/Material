@@ -5,7 +5,7 @@ import datetime
 
 # --- PART 1: INITIALIZATION ---
 # 'serviceAccountKey.json' is the file you downloaded from Firebase Console
-cred = credentials.Certificate("serviceAccountKey.json")
+cred = credentials.Certificate("scraper/firebase-key.json")
 firebase_admin.initialize_app(cred)
 
 # This 'db' object is your direct connection to Firestore
