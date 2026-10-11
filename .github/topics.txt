@@ -1,0 +1,14 @@
+material-design-3
+material-you
+academic-os
+productivity
+react
+tailwindcss
+gemini-api
+firebase-auth
+educational-technology
+focus-mode
+bento-grid
+student-hub
+ui-ux
+design-systems
